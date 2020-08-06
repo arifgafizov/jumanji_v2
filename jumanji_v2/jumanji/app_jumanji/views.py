@@ -1,6 +1,10 @@
 from django.http import HttpResponseNotFound, HttpResponseServerError
 from django.shortcuts import render, Http404
 from django.views import View
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import CreateView
+from django.contrib.auth.views import LoginView
+
 
 from app_jumanji.models import Specialty, Company, Vacancy
 
@@ -81,6 +85,17 @@ class MyCompanyVacancyView(View):
             'vacancy': vacancy
         }
         return render(request, 'vacancy.html', context=context)
+
+
+class MySignupView(CreateView):
+    form_class = UserCreationForm
+    success_url = 'login'
+    template_name = 'signup.html'
+
+
+class MyLoginView(LoginView):
+    redirect_authenticated_user = True
+    template_name = 'login.html'
 
 
 def custom_handler404(request, exception):

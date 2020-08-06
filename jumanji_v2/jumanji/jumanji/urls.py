@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.auth.views import LogoutView
 
 from app_jumanji.views import IndexView, VacanciesView, CompaniesView, VacancyView, VacanciesSpecialtiesView, \
-    custom_handler404, custom_handler500, CompanyCreateView, MyCompanyView, MyCompanyVacanciesView, MyCompanyVacancyView
+custom_handler404, custom_handler500, CompanyCreateView, MyCompanyView, MyCompanyVacanciesView, MyCompanyVacancyView, \
+    MySignupView, MyLoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,6 +34,9 @@ urlpatterns = [
     path('mycompany', MyCompanyView.as_view(), name='mycompany'),
     path('mycompany/vacancies', MyCompanyVacanciesView.as_view(), name='mycompany_vacancies'),
     path('mycompany/vacancies/<int:vacancy_id>', MyCompanyVacancyView.as_view(), name='mycompany_vacancy'),
+    path('login', MyLoginView.as_view()),
+    path('logout', LogoutView.as_view()),
+    path('signup', MySignupView.as_view()),
 ]
 
 handler404 = custom_handler404
