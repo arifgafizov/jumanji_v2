@@ -73,7 +73,10 @@ class MyCompanyView(View):
 
 class MyCompanyVacanciesView(View):
     def get(self, request):
-        return render(request, 'vacancies.html')
+        context = {
+            'vacancies': Vacancy.objects.all()
+        }
+        return render(request, 'vacancies.html', context=context)
 
 
 class MyCompanyVacancyView(View):
@@ -89,7 +92,7 @@ class MyCompanyVacancyView(View):
 
 class MySignupView(CreateView):
     form_class = UserCreationForm
-    success_url = 'login'
+    success_url = '/'
     template_name = 'signup.html'
 
 

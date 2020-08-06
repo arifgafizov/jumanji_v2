@@ -11,14 +11,14 @@
 <body>
  <header class="container mt-3">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand mr-4" href="#">Джуманджи</a>
+      <a class="navbar-brand mr-4" href="/">Джуманджи</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse justify-content-between" id="navbarNav">
         <ul class="navbar-nav col-10">
           <li class="nav-item">
-            <a class="nav-link" href="#">Вакансии</a>
+            <a class="nav-link" href="{% url 'vacancies' %}">Вакансии</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Компании</a>
@@ -29,7 +29,13 @@
         </ul>
         <ul class="navbar-nav col-2 justify-content-end">
           <li class="nav-item active">
-            <a href="#" class="nav-link font-weight-bold">Вход</a>
+            <a href="/login" class="nav-link font-weight-bold">Вход</a>
+          </li>
+           <li class="nav-item active">
+            <a href="/logout" class="nav-link font-weight-bold">Выход</a>
+          </li>
+          <li class="nav-item active">
+            <a href="/signup" class="nav-link font-weight-bold">Регистрация</a>
           </li>
         </ul>
       </div>
