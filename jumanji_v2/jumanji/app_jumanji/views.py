@@ -57,6 +57,31 @@ class VacancyView(View):
         }
         return render(request, 'vacancy.html', context=context)
 
+class CompanyCreateView(View):
+    def get(self, request, vacancy_id):
+        return render(request, 'company-create.html')
+
+
+class MyCompanyView(View):
+    def get(self, request):
+        return render(request, 'company-edit.html')
+
+
+class MyCompanyVacanciesView(View):
+    def get(self, request):
+        return render(request, 'vacancies.html')
+
+
+class MyCompanyVacancyView(View):
+    def get(self, request, vacancy_id):
+        vacancy = Vacancy.objects.filter(id=vacancy_id).first()
+        if not vacancy:
+            raise Http404
+        context = {
+            'vacancy': vacancy
+        }
+        return render(request, 'vacancy.html', context=context)
+
 
 def custom_handler404(request, exception):
     return HttpResponseNotFound("<h1>page not found</h1>")
