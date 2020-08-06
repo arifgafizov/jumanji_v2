@@ -6,7 +6,9 @@
     </div>
     <section>
       <div class="text-center">
-        <img src="https://place-hold.it/130x80" width="130" height="80" alt="">
+        {% if company.logo %}
+        <img src="{{company.logo.url}}" width="130" height="80" alt="">
+        {% endif %}
       </div>
       <h1 class="h1 text-center mx-auto mt-0 pt-1" style="font-size: 70px;"><strong>{{company.name}}</strong></h1>
       <p class="text-center pt-1">Компания, 5 вакансий</p>
