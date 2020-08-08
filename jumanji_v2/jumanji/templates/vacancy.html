@@ -9,7 +9,7 @@
       </div>
       <div class="col-12 col-lg-8">
         <section class="pl-3">
-          <a href="#"><img src="https://place-hold.it/130x80" width="130" height="80" alt=""></a>
+          <a href="#"><img src="{{vacancy.specialty.picture.url}}" width="130" height="80" alt=""></a>
           <div class="d-flex align-items-baseline align-content-baseline">
             <h1 class="h2 mt-4 font-weight-bold" >{{vacancy.title}}</h1>
             <p class="m-0 pl-3">{{vacancy.salary_min}} – {{vacancy.salary_max}} Р</p>
@@ -45,23 +45,10 @@
               Опыт работы в команде по Scrum
             </p>
           </div>
-          <form action="/echo" class="card mt-4 mb-3">
-            <div class="card-body mx-3">
-              <p class="h5 mt-3 font-weight-normal">Отозваться на вакансию</p>
-              <div class="form-group">
-                <label class="mb-1 mt-2" for="userName">Вас зовут</label>
-                <input class="form-control" type="text" placeholder="" id="userName">
-              </div>
-              <div class="form-group">
-                <label class="mb-1" for="userPhone">Ваш телефон</label>
-                <input class="form-control" type="tel" placeholder="" id="userPhone">
-              </div>
-              <div class="form-group">
-                <label class="mb-1" for="userMsg" >Сопроводительное письмо</label>
-                <textarea class="form-control" rows="8" id="userMsg"></textarea>
-              </div>
-              <input type="submit" class="btn btn-primary mt-4 mb-2" value="Записаться на пробный урок">
-            </div>
+          <form action="{{vacancy.id}}/send" method="post">
+            {% csrf_token %}
+            {{applicationform.as_p}}
+            <input type="submit" value="Откликнуться">
           </form>
         </section>
       </div>
