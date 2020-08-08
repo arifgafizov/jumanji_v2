@@ -1,4 +1,4 @@
-from django.http import HttpResponseNotFound, HttpResponseServerError
+from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse
 from django.shortcuts import render, Http404
 from django.views import View
 from django.contrib.auth.forms import UserCreationForm
@@ -7,6 +7,8 @@ from django.contrib.auth.views import LoginView
 
 
 from app_jumanji.models import Specialty, Company, Vacancy
+
+from jumanji.forms import ApplicationForm, CompanyForm
 
 
 class IndexView(View):
@@ -56,19 +58,57 @@ class VacancyView(View):
         vacancy = Vacancy.objects.filter(id=id).first()
         if not vacancy:
             raise Http404
+        applicationform = ApplicationForm()
         context = {
-            'vacancy': vacancy
+            'vacancy': vacancy,
+            'applicationform': applicationform
         }
         return render(request, 'vacancy.html', context=context)
 
+    def post(self, request):
+        applicationform = ApplicationForm()
+        if applicationform.is_valid():
+            applicationform.save
+            return HttpResponse('отклик отправлен')
+        context = {
+            'applicationform': applicationform
+        }
+        return render(request, 'vacancy.html', context=context)
+
+class SendRequestView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'sendrequest.html')
+
+    def post(self, request, *args, **kwargs):
+        applicationform = ApplicationForm(request.POST)
+        if applicationform.is_valid():
+            applicationform.save()
+            return HttpResponse('<h2>отклик отправлен</h2>')
+        return render(request, 'sendrequest.html')
+
 class CompanyCreateView(View):
     def get(self, request, vacancy_id):
-        return render(request, 'company-create.html')
+        applicationform = ApplicationForm()
+        context = {
+            'vacancy_id': vacancy_id,
+            'applicationform': applicationform
+        }
+        return render(request, 'company-create.html', context=context)
 
 
 class MyCompanyView(View):
     def get(self, request):
-        return render(request, 'company-edit.html')
+        user_id = request.user.id
+        company = Company.objects.filter(owner_id=user_id).first()
+        if not company:
+            return render(request, 'company-create.html')
+        companyform = CompanyForm()
+        context = {
+            'companyform': companyform,
+            'user_id': user_id,
+            'company': company
+        }
+        return render(request, 'company-edit.html', context=context)
 
 
 class MyCompanyVacanciesView(View):
