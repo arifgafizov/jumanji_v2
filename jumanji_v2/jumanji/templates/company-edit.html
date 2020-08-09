@@ -20,21 +20,22 @@
               <p class="alert alert-info" role="alert">
                 Информация о компании обновлена
               </p>
-              {{user_id}}
-              <form action="/echo">
+
+              <form method="post">
+                {% csrf_token %}
                 <div class="row">
                   <div class="col-12 col-md-6">
                     <div class="form-group pb-2">
-                      <label class="mb-2 text-dark" for="companyName">Название компании</label>
-                      <input class="form-control" type="text" value="Staffing Smarter" id="companyName">
+                      <label class="mb-2 text-dark" for="{{companyform.name}}"Название компании</label>
+                      <input class="form-control" type="text" value="{{company.name}}" id="companyName">
                     </div>
                   </div>
                   <div class="col-12 col-md-6">
                     <div class="form-group">
-                      <label class="mb-2 text-dark" for="companyLogo">Логотип</label>
+                      <label class="mb-2 text-dark" for="{{companyform.logo}}">Логотип</label>
                       <div class="row align-items-center">
                         <div class="col-6">
-                          <img src="https://place-hold.it/120x40" alt="" style="max-width: 120px;height: auto;">
+                          <img src="{{company.logo.url}}" alt="" style="max-width: 120px;height: auto;">
                         </div>
                         <div class="col-6" style="position: relative;">
                           <div class="input-group-prepend" style="position: absolute; top: 0;right: 15px;">
@@ -51,22 +52,26 @@
                 <div class="row">
                   <div class="col-12 col-md-6">
                     <div class="form-group pb-2">
-                      <label class="mb-2 text-dark" for="companyTeam">Количество человек в компании</label>
-                      <input class="form-control" type="text" value="10-15" id="companyTeam">
+                      <label class="mb-2 text-dark" for="{{companyform.employee_count}}">Количество человек в компании</label>
+                      <input class="form-control" type="text" value="{{company.employee_count}}" id="companyTeam">
                     </div>
                   </div>
                   <div class="col-12 col-md-6">
                     <div class="form-group pb-2">
-                      <label class="mb-2 text-dark" for="companyLocation">География</label>
-                      <input class="form-control" type="text" value="Рязань" id="companyLocation">
+                      <label class="mb-2 text-dark" for="{{companyform.location}}">География</label>
+                      <input class="form-control" type="text" value="{{company.location}}" id="companyLocation">
                     </div>
                   </div>
                 </div>
                 <div class="form-group pb-2">
-                  <label class="mb-2 text-dark" for="companyInfo">Информация о&nbsp;компании</label>
-                  <textarea class="form-control" rows="4" id="companyInfo" style="color:#000;">Для тех, кто желает работать в&nbsp;комфортном офисе,&nbsp;&mdash; у&nbsp;нас их&nbsp;целых три. Исторически так сложилось, что руководство и&nbsp;менеджерский состав располагается в&nbsp;Москве (обусловлено близостью заказчиков), центр разработки&nbsp;&mdash; в&nbsp;Ульяновске, в&nbsp;т.&nbsp;ч. школа молодых разработчиков и&nbsp;QA-центр&nbsp;&mdash; в&nbsp;Казани.</textarea>
+                  <label class="mb-2 text-dark" for="{{companyform.description}}">Информация о&nbsp;компании</label>
+                  <textarea class="form-control" rows="4" id="companyInfo" style="color:#000;">{{company.description}}</textarea>
                 </div>
                 <div class="form-group">
+                <select class="form-control" id="exampleSelect1">
+                   <label for="{{companyform.owner}}">Пользователь</label>
+                </select>
+                </div><div class="form-group">
                   <input type="submit" class="btn btn-info" value="Сохранить">
                 </div>
               </form>

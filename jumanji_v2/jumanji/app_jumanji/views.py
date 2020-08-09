@@ -1,5 +1,5 @@
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse
-from django.shortcuts import render, Http404
+from django.shortcuts import render, Http404, redirect
 from django.views import View
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
@@ -45,7 +45,7 @@ class CompaniesView(View):
         company = Company.objects.filter(id=id).first()
         vacancies = Vacancy.objects.filter(company__name=company.name).all()
         if not company:
-            raise Http404
+            return HttpResponse('0 вакансий')
         context = {
             'company': company,
             'vacancies': vacancies
@@ -87,11 +87,10 @@ class SendRequestView(View):
         return render(request, 'sendrequest.html')
 
 class CompanyCreateView(View):
-    def get(self, request, vacancy_id):
-        applicationform = ApplicationForm()
+    def get(self, request, *args, **kwargs):
+        companyform = CompanyForm()
         context = {
-            'vacancy_id': vacancy_id,
-            'applicationform': applicationform
+            'companyform': companyform,
         }
         return render(request, 'company-create.html', context=context)
 
@@ -107,14 +106,27 @@ class MyCompanyView(View):
             'companyform': companyform,
             'user_id': user_id,
             'company': company
+         }
+        return render(request, 'company-edit.html', context=context)
+
+    def post(self, request):
+        companyform = CompanyForm(request.POST)
+        if companyform.is_valid():
+            companyform.save()
+
+        context = {
+            'companyform': companyform
         }
         return render(request, 'company-edit.html', context=context)
 
 
 class MyCompanyVacanciesView(View):
     def get(self, request):
+        user_id = request.user.id
+        vacancies = Vacancy.objects.filter(company__owner_id=user_id).all()
+
         context = {
-            'vacancies': Vacancy.objects.all()
+            'vacancies': vacancies
         }
         return render(request, 'vacancies.html', context=context)
 

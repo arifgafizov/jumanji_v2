@@ -48,7 +48,7 @@
           <form action="{{vacancy.id}}/send" method="post">
             {% csrf_token %}
             {{applicationform.as_p}}
-            <input type="submit" value="Откликнуться">
+            <input class="btn btn-info mb-2" type="submit" value="Откликнуться">
           </form>
         </section>
       </div>
