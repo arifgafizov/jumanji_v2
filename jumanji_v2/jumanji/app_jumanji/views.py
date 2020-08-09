@@ -1,5 +1,5 @@
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse
-from django.shortcuts import render, Http404, redirect
+from django.shortcuts import render, Http404
 from django.views import View
 from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
@@ -75,6 +75,7 @@ class VacancyView(View):
         }
         return render(request, 'vacancy.html', context=context)
 
+
 class SendRequestView(View):
     def get(self, request, *args, **kwargs):
         return render(request, 'sendrequest.html')
@@ -85,6 +86,7 @@ class SendRequestView(View):
             applicationform.save()
             return HttpResponse('<h2>отклик отправлен</h2>')
         return render(request, 'sendrequest.html')
+
 
 class CompanyCreateView(View):
     def get(self, request, *args, **kwargs):

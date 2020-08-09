@@ -20,7 +20,7 @@ from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView
 
 from app_jumanji.views import IndexView, VacanciesView, CompaniesView, VacancyView, VacanciesSpecialtiesView, \
-custom_handler404, custom_handler500, CompanyCreateView, MyCompanyView, MyCompanyVacanciesView, MyCompanyVacancyView, \
+    custom_handler404, custom_handler500, MyCompanyView, MyCompanyVacanciesView, MyCompanyVacancyView, \
     MySignupView, MyLoginView, SendRequestView
 
 urlpatterns = [
