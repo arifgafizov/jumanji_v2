@@ -8,7 +8,7 @@ from django.contrib.auth.views import LoginView
 
 from app_jumanji.models import Specialty, Company, Vacancy
 
-from jumanji.forms import ApplicationForm, CompanyForm
+from jumanji.forms import ApplicationForm, CompanyForm, VacancyForm
 
 
 class IndexView(View):
@@ -126,11 +126,15 @@ class MyCompanyVacanciesView(View):
     def get(self, request):
         user_id = request.user.id
         vacancies = Vacancy.objects.filter(company__owner_id=user_id).all()
+        vacancyform = VacancyForm()
+        companyform = CompanyForm()
 
         context = {
-            'vacancies': vacancies
+            'vacancies': vacancies,
+            'vacancyform': vacancyform,
+            'companyform': companyform
         }
-        return render(request, 'vacancies.html', context=context)
+        return render(request, 'mycompany-vacancies.html', context=context)
 
 
 class MyCompanyVacancyView(View):
@@ -141,7 +145,7 @@ class MyCompanyVacancyView(View):
         context = {
             'vacancy': vacancy
         }
-        return render(request, 'vacancy.html', context=context)
+        return render(request, 'mycompany-vacancy.html', context=context)
 
 
 class MySignupView(CreateView):
