@@ -1,7 +1,6 @@
 from django import forms
 
-
-from app_jumanji.models import Application, Company
+from app_jumanji.models import Application, Company, Vacancy
 
 
 class ApplicationForm(forms.ModelForm):
@@ -13,4 +12,10 @@ class ApplicationForm(forms.ModelForm):
 class CompanyForm(forms.ModelForm):
     class Meta:
         model = Company
+        fields = '__all__'
+
+
+class VacancyForm(forms.ModelForm):
+    class Meta:
+        model = Vacancy
         fields = '__all__'
