@@ -13,7 +13,7 @@ class ApplicationForm(forms.ModelForm):
 class CompanyForm(forms.ModelForm):
     class Meta:
         model = Company
-        exclude = ['owner', 'logo']
+        exclude = ['owner']
 
 
 class VacancyForm(forms.ModelForm):

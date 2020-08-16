@@ -5,7 +5,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
 from django.contrib.auth.views import LoginView
 
-
 from app_jumanji.models import Specialty, Company, Vacancy
 
 from jumanji.forms import ApplicationForm, CompanyForm, VacancyForm
@@ -112,7 +111,7 @@ class MyCompanyView(View):
         return render(request, 'company-edit.html', context=context)
 
     def post(self, request):
-        companyform = CompanyForm(request.POST)
+        companyform = CompanyForm(request.POST, request.FILES)
         user_id = request.user.id
         company = Company.objects.filter(owner_id=user_id).first()
         if companyform.is_valid():
@@ -124,9 +123,10 @@ class MyCompanyView(View):
                 name=companyform.cleaned_data['name'],
                 location=companyform.cleaned_data['location'],
                 description=companyform.cleaned_data['description'],
-                employee_count=companyform.cleaned_data['employee_count']
+                employee_count=companyform.cleaned_data['employee_count'],
+                logo=companyform.cleaned_data['logo']
             )
-
+        print(companyform.errors)
         context = {
             'companyform': companyform
         }
