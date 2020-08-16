@@ -17,21 +17,28 @@
             <!-- Tab -->
             <section class="tab-pane fade show active">
               <h2 class="h4 pt-2 pb-3">ВАКАНСИИ</h2>
-                {% for vacancy in vacancies %}
+                {% for my_vacancy in my_vacancies %}
                     <div class="card mb-4">
                         <div class="card-body px-4">
-                          <div class="row">
+                          <div class="row align-items-center">
                             <div class="col-12 col-md-8 col-lg-9">
-                              <p class="mb-2">{{vacancy.title}}</p>
-                              <p>От {{vacancy.salary_min}} до {{vacancy.salary_max}} руб.</p>
-                                <a class="nav-link" href="vacancies/{{vacancy.id}}">Изменить</a>
+                              <a href="vacancies/{{my_vacancy.id}}" class="mb-1">{{my_vacancy.title}}</a>
+                              <p>От {{my_vacancy.salary_min}} до {{my_vacancy.salary_max}} руб.
+                              <span class="text-muted">{{my_vacancy.applications.count}} отклика</span>
+                              </p>
+                            </div>
+                            <div>
+                                <a class="btn btn-outline-info" href="vacancies/{{my_vacancy.id}}">Изменить</a>
                             </div>
                           </div>
                         </div>
                       </div>
                 {% endfor%}
                 <div class="form-group">
-                  <input type="submit" class="btn btn-info" value="Добавить вакансию">
+                  <form action="vacancy/add" >
+                      <button class="btn btn-info">Добавить вакансию</button>
+                  </form>
+
                 </div>
             </section>
             <!-- END Tab -->

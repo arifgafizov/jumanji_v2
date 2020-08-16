@@ -27,13 +27,13 @@
                 <div class="row">
                   <div class="col-12 col-md-6">
                     <div class="form-group pb-2">
-                      <label class="mb-2 text-dark" for="{{companyform.fields.name}}"Название компании</label>
-                      <input class="form-control" type="text" value="{{company.name}}" id="companyName">
+                      <label class="mb-2 text-dark" for="companyName">Название компании</label>
+                      <input class="form-control" type="text" value="{{company.name}}" id="companyName" name="name">
                     </div>
                   </div>
                   <div class="col-12 col-md-6">
                     <div class="form-group">
-                      <label class="mb-2 text-dark" for="{{companyform.fields.logo}}">Логотип</label>
+                      <label class="mb-2 text-dark" for="companyLogo">Логотип</label>
                       <div class="row align-items-center">
                         <div class="col-6">
                           <img src="{{company.logo.url}}" alt="" style="max-width: 120px;height: auto;">
@@ -43,7 +43,7 @@
                             <span class="btn btn-info px-4">Загрузить</span>
                           </div>
                           <div class="custom-file" style="">
-                            <input type="file" class="custom-file-input" id="inputGroupFile01">
+                            <input type="file" class="custom-file-input" id="companyLogo" name="logo">
                           </div>
                         </div>
                       </div>
@@ -53,25 +53,21 @@
                 <div class="row">
                   <div class="col-12 col-md-6">
                     <div class="form-group pb-2">
-                      <label class="mb-2 text-dark" for="{{companyform.fields.employee_count}}">Количество человек в компании</label>
-                      <input class="form-control" type="text" value="{{company.employee_count}}" id="companyTeam">
+                      <label class="mb-2 text-dark" for="companyTeam">Количество человек в компании</label>
+                      <input class="form-control" type="text" value="{{company.employee_count}}" id="companyTeam" name="employee_count">
                     </div>
                   </div>
                   <div class="col-12 col-md-6">
                     <div class="form-group pb-2">
-                      <label class="mb-2 text-dark" for="{{companyform.fields.location}}">География</label>
-                      <input class="form-control" type="text" value="{{company.location}}" id="companyLocation">
+                      <label class="mb-2 text-dark" for="companyLocation">География</label>
+                      <input class="form-control" type="text" value="{{company.location}}" id="companyLocation" name="location">
                     </div>
                   </div>
                 </div>
                 <div class="form-group pb-2">
-                  <label class="mb-2 text-dark" for="{{companyform.fields.description}}">Информация о&nbsp;компании</label>
-                  <textarea class="form-control" rows="4" id="companyInfo" style="color:#000;">{{company.description}}</textarea>
+                  <label class="mb-2 text-dark" for="companyInfo">Информация о&nbsp;компании</label>
+                  <textarea class="form-control" rows="4" id="companyInfo" style="color:#000;" name="description">{{company.description}}</textarea>
                 </div>
-                <div class="form-group">
-                <select class="form-control" id="exampleSelect1">
-                   <label for="{{companyform.fields.owner}}">Пользователь</label>
-                </select>
                 </div><div class="form-group">
                   <input type="submit" class="btn btn-info" value="Сохранить">
                 </div>

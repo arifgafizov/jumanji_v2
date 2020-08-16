@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block container %}
+  <main class="container mt-3 pb-5">
+    <div class="row mt-5">
+      <div class="col-10 col-md-6 offset-1 offset-md-3 mt-5">
+        <div class="card mb-3">
+          <div class="card-body text-center pt-5">
+            <img src="../static/check.png" width="65" alt="">
+            <h2 class="h5 card-title mt-4 mb-2">Отклик отправлен</h2>
+            <p><a href="{% url 'vacancies' %}">Вернуться к вакансиям</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+{% endblock %}

@@ -27,7 +27,7 @@
                   <div class="col-12 col-md-6">
                     <div class="form-group pb-2">
                       <label class="mb-2 text-dark" for="vacancyTitle">Название вакансии</label>
-                      <input class="form-control" type="text" value="{{vacancy.title}}" id="vacancyTitle" name="title">
+                      <input class="form-control" type="text" value="title" id="vacancyTitle" name="title">
                     </div>
                   </div>
                   <div class="col-12 col-md-6">
@@ -44,30 +44,30 @@
                 <div class="row">
                   <div class="col-12 col-md-6">
                     <div class="form-group pb-2">
-                      <label class="mb-2 text-dark" for="vacancySalaryMin">Зарплата от </label>
-                      <input class="form-control" type="text" value="{{vacancy.salary_min}}" id="vacancySalaryMin" name="salary_min">
+                      <label class="mb-2 text-dark" for="vacancySalary_min">Зарплата от </label>
+                      <input class="form-control" type="text" value="salary_min" id="vacancySalary_min" name="salary_min">
                     </div>
                   </div>
                   <div class="col-12 col-md-6">
                     <div class="form-group pb-2">
-                      <label class="mb-2 text-dark" for="vacancySalaryMax">Зарплата до</label>
-                      <input class="form-control" type="text" value="{{vacancy.salary_max}}" id="vacancySalaryMax" name="salary_max">
+                      <label class="mb-2 text-dark" for="vacancySalary_max">Зарплата до</label>
+                      <input class="form-control" type="text" value="salary_max" id="vacancySalary_max" name="salary_max">
                     </div>
                   </div>
                 </div>
                 <div class="form-group pb-2">
                   <label class="mb-2 text-dark" for="vacancySkills">Требуемые навыки</label>
-                  <textarea class="form-control" rows="2" id="vacancySkills" style="color:#000;" name="skills">{{vacancy.skills}}</textarea>
+                  <textarea class="form-control" rows="2" id="vacancySkills" style="color:#000;" name="skills">skills</textarea>
                 </div>
                 <div class="form-group pb-2">
                   <label class="mb-2 text-dark" for="vacancyDescription">Описание вакансии</label>
-                  <textarea class="form-control" rows="4" id="vacancyDescription" style="color:#000;" name="description">{{vacancy.description}}</textarea>
+                  <textarea class="form-control" rows="4" id="vacancyDescription" style="color:#000;" name="description">description</textarea>
                 </div>
                 <div class="row">
                   <div class="col-12 col-md-6">
                     <div class="form-group pb-2">
                       <label class="mb-2 text-dark" for="vacancyPublished_at">Дата публикации </label>
-                      <input class="form-control" type="text" value="{{vacancy.published_at}}" id="vacancyPublished_at" name="published_at">
+                      <input class="form-control" type="text" id="vacancyPublished_at" name="published_at">
                     </div>
                   </div>
                 </div>
@@ -75,21 +75,6 @@
                   <input type="submit" class="btn btn-info" value="Сохранить">
                 </div>
               </form>
-              <!-- END Vacancy info -->
-              <!-- Applications -->
-              <h2 class="h4 pt-2 pb-3">Отклики - {{vacancy.applications.count}}</h2>
-              <!-- Application 1 -->
-              {% for application in applications %}
-              <div class="card mt-3">
-                <div class="card-body px-4">
-                  <p class="mb-1 font-weight-bold">{{application.written_username}}</p>
-                  <p class="mb-2"><a href="tel:+79002842324" class="text-dark">{{application.written_phone}}</a></p>
-                  <p class="mb-1">{{application.written_cover_letter}}</p>
-                </div>
-              </div>
-              {% endfor %}
-              <!-- END Application 1 -->
-              <!-- END Applications -->
             </section>
             <!-- END Tab -->
           </div>

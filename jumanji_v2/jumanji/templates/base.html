@@ -21,23 +21,35 @@
             <a class="nav-link" href="{% url 'vacancies' %}">Вакансии</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'mycompany' %}">Компании</a>
+            <a class="nav-link" href="#">Компании</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">О проекте</a>
           </li>
         </ul>
+        {% if request.user.is_authenticated %}
+        <ul class="navbar-nav col-2 justify-content-end">
+          <li class="nav-item active">
+            <div class="btn-group">
+              <button type="button" class="btn dropdown-toggle font-weight-bold" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{request.user}}
+              </button>
+              <div class="dropdown-menu dropdown-menu-right mt-3">
+                <a href="#" class="dropdown-item py-2">Профиль</a>
+                <a href="#" class="dropdown-item py-2">Резюме</a>
+                <a href="{% url 'mycompany' %}" class="dropdown-item py-2">Компания</a>
+                <a href="/logout" class="dropdown-item py-2">Выйти</a>
+              </div>
+            </div>
+          </li>
+        </ul>
+        {% else %}
         <ul class="navbar-nav col-2 justify-content-end">
           <li class="nav-item active">
             <a href="/login" class="nav-link font-weight-bold">Вход</a>
           </li>
-           <li class="nav-item active">
-            <a href="/logout" class="nav-link font-weight-bold">Выход</a>
-          </li>
-          <li class="nav-item active">
-            <a href="/signup" class="nav-link font-weight-bold">Регистрация</a>
-          </li>
         </ul>
+        {% endif %}
       </div>
     </nav>
   </header>
