@@ -5,9 +5,9 @@ from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView
 from django.contrib.auth.views import LoginView
 
-from app_jumanji.models import Specialty, Company, Vacancy
+from app_jumanji.models import Specialty, Company, Vacancy, Resume
 
-from jumanji.forms import ApplicationForm, CompanyForm, VacancyForm
+from jumanji.forms import ApplicationForm, CompanyForm, VacancyForm, ResumeForm
 
 
 class IndexView(View):
@@ -203,6 +203,53 @@ class MyCompanyVacancyAddView(View):
             'vacancyform': vacancyform,
         }
         return render(request, 'mycompany-vacancy-add.html', context=context)
+
+
+class SearchView(View):
+    def get(self, request):
+        return render(request, 'search.html')
+
+
+class MyResumeView(View):
+    def get(self, request):
+        userid = request.user.id
+        resume = Resume.objects.filter(user_id=userid).first()
+        if not resume:
+            return render(request, 'resume-create.html')
+        resumeform = ResumeForm()
+        context = {
+            'resumeform': resumeform,
+            'userid': userid,
+            'resume': resume,
+         }
+        return render(request, 'resume-edit.html', context=context)
+    def post(self, request):
+        resumeform = ResumeForm(request.POST)
+        user_id = request.user.id
+        resume = Resume.objects.filter(user_id=user_id).first()
+        if resumeform.is_valid():
+            if not resume:
+                resume = resumeform.save(commit=False)
+                resume.user = request.user
+                resume.save()
+            Resume.objects.filter(id=resume.id).update(
+                name=resumeform.cleaned_data['name'],
+                surname=resumeform.cleaned_data['surname'],
+                status=resumeform.cleaned_data['status'],
+                salary=resumeform.cleaned_data['salary'],
+                specialty=resumeform.cleaned_data['specialty'],
+                grade=resumeform.cleaned_data['grade'],
+                education=resumeform.cleaned_data['education'],
+                experience=resumeform.cleaned_data['experience'],
+                portfolio=resumeform.cleaned_data['portfolio']
+            )
+        print(resumeform.errors)
+        context = {
+            'resumeform': resumeform
+        }
+        return render(request, 'resume-edit.html', context=context)
+
+
 
 class MySignupView(CreateView):
     form_class = UserCreationForm

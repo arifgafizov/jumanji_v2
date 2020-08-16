@@ -1,7 +1,11 @@
+from enum import Enum
+
 from django.db import models
 from django.contrib.auth.models import User
 
 from jumanji.settings import MEDIA_SPECIALITY_IMAGE_DIR, MEDIA_COMPANY_IMAGE_DIR
+
+from app_jumanji.data import WorkStatusChoices, SpecialtyChoices, GradeChoices, EducationChoices
 
 
 class Company(models.Model):
@@ -36,3 +40,16 @@ class Application(models.Model):
     written_cover_letter = models.CharField(max_length=300)
     vacancy = models.ForeignKey(Vacancy, related_name='applications', on_delete=models.CASCADE)
     user = models.ForeignKey(User, related_name='applications', on_delete=models.CASCADE)
+
+
+class Resume(models.Model):
+    user = models.ForeignKey(User, related_name='resume', on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    surname = models.CharField(max_length=100)
+    status = models.CharField(max_length=100, choices=WorkStatusChoices)
+    salary = models.FloatField()
+    specialty = models.CharField(max_length=100, choices=SpecialtyChoices)
+    grade = models.CharField(max_length=100, choices=GradeChoices)
+    education = models.CharField(max_length=100, choices=EducationChoices)
+    experience = models.CharField(max_length=500)
+    portfolio = models.CharField(max_length=500)
