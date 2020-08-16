@@ -223,6 +223,7 @@ class MyResumeView(View):
             'resume': resume,
          }
         return render(request, 'resume-edit.html', context=context)
+
     def post(self, request):
         resumeform = ResumeForm(request.POST)
         user_id = request.user.id
@@ -250,12 +251,10 @@ class MyResumeView(View):
         return render(request, 'resume-edit.html', context=context)
 
 
-
 class MySignupView(CreateView):
     form_class = UserCreationForm
     success_url = '/'
     template_name = 'signup.html'
-
 
 
 class MyLoginView(LoginView):

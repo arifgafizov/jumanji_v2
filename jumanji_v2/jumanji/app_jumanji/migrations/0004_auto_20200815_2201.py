@@ -14,6 +14,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='vacancy',
             name='specialty',
-            field=models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.CASCADE, related_name='vacancies', to='app_jumanji.Specialty'),
+            field=models.ForeignKey(default=None, null=True, on_delete=django.db.models.deletion.CASCADE,
+                                    related_name='vacancies', to='app_jumanji.Specialty'),
         ),
     ]

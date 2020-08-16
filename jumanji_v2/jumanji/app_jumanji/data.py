@@ -1,4 +1,3 @@
-from enum import Enum
 
 jobs = [
 
@@ -56,15 +55,13 @@ specialties = [
 #    description=job['desc'], salary_min=job['salary_from'], salary_max=job['salary_to'], published_at=job['posted'])
 """ Статусы в формате Enum """
 
-
-
 EducationChoices = [
-    ('missing', 'Отсутствует'),
-    ('secondary', 'Среднее'),
-    ('vocational', 'Средне-специальное'),
-    ('incomplete_higher', 'Неполное высшее'),
-    ('higher', 'Высшее'),
-    ]
+            ('missing', 'Отсутствует'),
+            ('secondary', 'Среднее'),
+            ('vocational', 'Средне-специальное'),
+            ('incomplete_higher', 'Неполное высшее'),
+            ('higher', 'Высшее'),
+            ]
 
 GradeChoices = [
     ('intern', 'intern'),

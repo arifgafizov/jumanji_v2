@@ -1,5 +1,3 @@
-from enum import Enum
-
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -25,7 +23,8 @@ class Specialty(models.Model):
 
 class Vacancy(models.Model):
     title = models.CharField(max_length=50)
-    specialty = models.ForeignKey(Specialty, related_name='vacancies', on_delete=models.CASCADE, default=None, null=True)
+    specialty = models.ForeignKey(Specialty, related_name='vacancies', on_delete=models.CASCADE,
+                                  default=None, null=True)
     company = models.ForeignKey(Company, related_name='vacancies', on_delete=models.CASCADE, default=None, null=True)
     skills = models.CharField(max_length=200)
     description = models.CharField(max_length=200)
