@@ -21,7 +21,7 @@ from django.contrib.auth.views import LogoutView
 
 from app_jumanji.views import IndexView, VacanciesView, CompaniesView, VacancyView, VacanciesSpecialtiesView, \
     custom_handler404, custom_handler500, MyCompanyView, MyCompanyVacanciesView, MyCompanyVacancyView, \
-    MySignupView, MyLoginView, SendRequestView
+    MySignupView, MyLoginView, SendRequestView, MyCompanyVacancyAddView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -34,6 +34,7 @@ urlpatterns = [
     path('mycompany', MyCompanyView.as_view(), name='mycompany'),
     path('mycompany/vacancies', MyCompanyVacanciesView.as_view(), name='mycompany_vacancies'),
     path('mycompany/vacancies/<int:vacancy_id>', MyCompanyVacancyView.as_view(), name='mycompany_vacancy'),
+    path('mycompany/vacancy/add', MyCompanyVacancyAddView.as_view(), name='mycompany_vacancy_add'),
     path('login', MyLoginView.as_view()),
     path('logout', LogoutView.as_view()),
     path('signup', MySignupView.as_view()),
