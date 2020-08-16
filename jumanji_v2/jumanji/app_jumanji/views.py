@@ -69,7 +69,7 @@ class VacancyView(View):
         applicationform = ApplicationForm()
         if applicationform.is_valid():
             applicationform.save
-            return HttpResponse('отклик отправлен')
+            return render(request, 'sent.html')
         context = {
             'applicationform': applicationform
         }
@@ -84,7 +84,7 @@ class SendRequestView(View):
         applicationform = ApplicationForm(request.POST)
         if applicationform.is_valid():
             applicationform.save()
-            return HttpResponse('<h2>отклик отправлен</h2>')
+            return render(request, 'sent.html')
         return render(request, 'sendrequest.html')
 
 
@@ -113,8 +113,19 @@ class MyCompanyView(View):
 
     def post(self, request):
         companyform = CompanyForm(request.POST)
+        user_id = request.user.id
+        company = Company.objects.filter(owner_id=user_id).first()
         if companyform.is_valid():
-            companyform.save()
+            if not company:
+                company = companyform.save(commit=False)
+                company.owner = request.user
+                company.save()
+            Company.objects.filter(id=company.id).update(
+                name=companyform.cleaned_data['name'],
+                location=companyform.cleaned_data['location'],
+                description=companyform.cleaned_data['description'],
+                employee_count=companyform.cleaned_data['employee_count']
+            )
 
         context = {
             'companyform': companyform
@@ -125,14 +136,11 @@ class MyCompanyView(View):
 class MyCompanyVacanciesView(View):
     def get(self, request):
         user_id = request.user.id
-        vacancies = Vacancy.objects.filter(company__owner_id=user_id).all()
-        vacancyform = VacancyForm()
-        companyform = CompanyForm()
+        company = Company.objects.filter(owner_id=user_id).first()
+        my_vacancies = company.vacancies.all()
 
         context = {
-            'vacancies': vacancies,
-            'vacancyform': vacancyform,
-            'companyform': companyform
+            'my_vacancies': my_vacancies,
         }
         return render(request, 'mycompany-vacancies.html', context=context)
 
@@ -142,16 +150,65 @@ class MyCompanyVacancyView(View):
         vacancy = Vacancy.objects.filter(id=vacancy_id).first()
         if not vacancy:
             raise Http404
+        vacancyform = VacancyForm()
+        specialties = Specialty.objects.all()
+        applications = vacancy.applications.all
         context = {
-            'vacancy': vacancy
+            'vacancy': vacancy,
+            'vacancyform': vacancyform,
+            'specialties': specialties,
+            'applications': applications
         }
         return render(request, 'mycompany-vacancy.html', context=context)
 
+    def post(self, request, vacancy_id, *args, **kwargs):
+        vacancyform = VacancyForm(request.POST)
+        if vacancyform.is_valid():
+            Vacancy.objects.filter(id=vacancy_id).update(
+                title=vacancyform.cleaned_data['title'],
+                specialty=vacancyform.cleaned_data['specialty'],
+                salary_min=vacancyform.cleaned_data['salary_min'],
+                salary_max=vacancyform.cleaned_data['salary_max'],
+                skills=vacancyform.cleaned_data['skills'],
+                description=vacancyform.cleaned_data['description'],
+                published_at=vacancyform.cleaned_data['published_at']
+            )
+        # print(vacancyform.errors)
+        context = {
+            'vacancyform': vacancyform,
+        }
+        return render(request, 'mycompany-vacancy.html', context=context)
+
+
+class MyCompanyVacancyAddView(View):
+    def get(self, request):
+        user_id = request.user.id
+        company = Company.objects.filter(owner_id=user_id).first()
+
+        vacancyform = VacancyForm()
+        specialties = Specialty.objects.all()
+        context = {
+            'vacancyform': vacancyform,
+            'specialties': specialties,
+            'company': company
+        }
+        return render(request, 'mycompany-vacancy-add.html', context=context)
+
+    def post(self, request, *args, **kwargs):
+        vacancyform = VacancyForm(request.POST)
+        if vacancyform.is_valid():
+            vacancyform.save()
+        # print(vacancyform.errors)
+        context = {
+            'vacancyform': vacancyform,
+        }
+        return render(request, 'mycompany-vacancy-add.html', context=context)
 
 class MySignupView(CreateView):
     form_class = UserCreationForm
     success_url = '/'
     template_name = 'signup.html'
+
 
 
 class MyLoginView(LoginView):
