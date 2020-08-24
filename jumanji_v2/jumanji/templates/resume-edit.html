@@ -8,12 +8,81 @@
         <p class="alert alert-info" role="alert">Ваше резюме обновлено!</p>
         <form method="post" class="">
           {% csrf_token %}
-          {{resumeform.as_p}}
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <div class="form-group pb-2">
+                <label class="mb-2 text-dark" for="userName">Имя</label>
+                <input class="form-control" type="text" value="{{resume.name}}" id="userName" name="name">
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="form-group pb-2">
+                <label class="mb-2 text-dark" for="userSurname">Фамилия</label>
+                <input class="form-control" type="text" value="{{resume.surname}}" id="userSurname" name="surname">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <div class="form-group pb-2">
+                <label class="mb-2 text-dark" for="userReady">Готовность к работе</label>
+                <select class="custom-select mr-sm-2" id="userReady" name="status">
+                  {% for status in resumeform.status %}
+                    {{status}}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="form-group pb-2">
+                <label class="mb-2 text-dark" for="userPortfolio">Ожидаемое вознаграждение</label>
+                <input class="form-control" type="text" value="{{resume.salary}}" id="userPortfolio" name="salary">
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12 col-md-6">
+              <div class="form-group pb-2">
+                <label class="mb-2 text-dark" for="userSpecialization">Специализация</label>
+                <select class="custom-select mr-sm-2" id="userSpecialization" name="specialty">
+                 {% for specialty in resumeform.specialty %}
+                    {{specialty}}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+            <div class="col-12 col-md-6">
+              <div class="form-group pb-2">
+                <label class="mb-2 text-dark" for="userQualification">Квалификация</label>
+                <select class="custom-select mr-sm-2" id="userQualification" name="grade">
+                 {% for grade in resumeform.grade %}
+                    {{grade}}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-group pb-2">
+            <label class="mb-2 text-dark" for="userEducation">Образование</label>
+            <select class="custom-select mr-sm-2" id="userEducation" name="education">
+                 {% for education in resumeform.education %}
+                    {{education}}
+                  {% endfor %}
+            </select>
+          </div>
+          <div class="form-group pb-2">
+            <label class="mb-2 text-dark" for="userExperience">Опыт работы</label>
+            <textarea class="form-control" rows="4" id="userExperience" name="experience" style="color:#000;">{{resume.experience}}</textarea>
+          </div>
+          <div class="form-group pb-3">
+            <label class="mb-2 text-dark" for="userPortfolio">Ссылка на портфолио</label>
+            <input class="form-control" type="text" placeholder="http://anylink.github.io" id="userPortfolio" name="portfolio" value="{{resume.portfolio}}">
+          </div>
           <div class="form-group">
             <input type="submit" class="btn btn-info" value="Сохранить">
           </div>
         </form>
-        </div>
+      </div>
     </section>
   </main>
 
