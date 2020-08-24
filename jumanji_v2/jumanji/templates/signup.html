@@ -17,7 +17,20 @@
             <h1 class="h3 mb-3 font-weight-normal">Джуманджи</h1>
             <p class="h5 font-weight-light">Создайте аккаунт</p>
           </div>
-          <table>{{ form.as_table }}</table>
+          {% for field in form %}
+          <div class=" form-label-group">
+          <p class="text-muted">
+            {{ field.label_tag }}<br>
+            {{ field }}
+            {% if field.help_text %}
+            <span>{{ field.help_text }}</span>
+            {% endif %}
+            {% for error in field.errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+          </p>
+          </div>
+          {% endfor %}
           <button class="btn btn-primary btn-lg btn-block" type="submit">Зарегистрироваться</button>
         </form>
 
