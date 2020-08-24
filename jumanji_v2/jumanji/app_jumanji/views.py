@@ -7,7 +7,7 @@ from django.contrib.auth.views import LoginView
 
 from app_jumanji.models import Specialty, Company, Vacancy, Resume
 
-from jumanji.forms import ApplicationForm, CompanyForm, VacancyForm, ResumeForm
+from jumanji.forms import ApplicationForm, CompanyForm, VacancyForm, ResumeForm, SignUpForm
 
 
 class IndexView(View):
@@ -252,7 +252,7 @@ class MyResumeView(View):
 
 
 class MySignupView(CreateView):
-    form_class = UserCreationForm
+    form_class = SignUpForm
     success_url = '/'
     template_name = 'signup.html'
 
