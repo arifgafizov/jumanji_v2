@@ -11,30 +11,18 @@
   <main class="container">
     <div class="row">
       <div class="col-8 col-lg-4 offset-2 offset-lg-4">
+        {% load crispy_forms_tags %}
         <form class="form-signin pt-5" method="post" action="signup">
           {% csrf_token %}>
           <div class="text-center mt-5 b-1">
             <h1 class="h3 mb-3 font-weight-normal">Джуманджи</h1>
             <p class="h5 font-weight-light">Создайте аккаунт</p>
           </div>
-          {% for field in form %}
-          <div class=" form-label-group">
-          <p class="text-muted">
-            {{ field.label_tag }}<br>
-            {{ field }}
-            {% if field.help_text %}
-            <span>{{ field.help_text }}</span>
-            {% endif %}
-            {% for error in field.errors %}
-            <p>{{ error }}</p>
-            {% endfor %}
-          </p>
-          </div>
-          {% endfor %}
+          {% crispy form "bootstrap4" %}
+          <div class="checkbox mb-3"></div>
           <button class="btn btn-primary btn-lg btn-block" type="submit">Зарегистрироваться</button>
         </form>
-
-         <div class="mt-4 text-center"><p>Есть аккаунт? <a href="/login">Войдите!</a></p></div>
+           <div class="mt-4 text-center"><p>Есть аккаунт? <a href="/login">Войдите!</a></p></div>
 
 
   </main>
