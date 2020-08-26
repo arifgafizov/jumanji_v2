@@ -32,6 +32,17 @@ class ResumeForm(forms.ModelForm):
 
 
 class SignUpForm(UserCreationForm):
-  class Meta:
-    model = User
-    fields = ('username', 'first_name', 'last_name')
+    password1 = forms.CharField(widget=forms.PasswordInput, label='Пароль')
+    password2 = None
+    class Meta:
+        model = User
+        fields = ('username', 'first_name', 'last_name')
+        labels = {
+            'username': 'Логин',
+            'first_name': 'Имя',
+            'last_name': 'Фамилия'
+        }
+        help_texts = {
+            'username': 'Требование к логину. Не более 150 символов. И только буквы, цифры и символы @/./+/-/_.'
+        }
+
