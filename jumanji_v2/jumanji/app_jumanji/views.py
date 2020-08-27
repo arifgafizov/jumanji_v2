@@ -1,8 +1,9 @@
+from django.db.models import Q
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse
 from django.shortcuts import render, Http404
 from django.views import View
 from django.contrib.auth.forms import UserCreationForm
-from django.views.generic import CreateView
+from django.views.generic import CreateView, ListView
 from django.contrib.auth.views import LoginView
 
 from app_jumanji.models import Specialty, Company, Vacancy, Resume
@@ -205,9 +206,17 @@ class MyCompanyVacancyAddView(View):
         return render(request, 'mycompany-vacancy-add.html', context=context)
 
 
-class SearchView(View):
-    def get(self, request):
-        return render(request, 'search.html')
+class SearchView(ListView):
+    model = Vacancy
+    template_name = 'search.html'
+    paginate_by = 10
+    ordering = ['-published_at']
+
+    def get_queryset(self):
+        query = self.request.GET.get('s')
+        return Vacancy.objects.filter(
+            Q(title=query) | Q(description=query) | Q(skills=query)
+            )
 
 
 class MyResumeView(View):
