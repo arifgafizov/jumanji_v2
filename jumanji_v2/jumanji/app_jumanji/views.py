@@ -1,8 +1,10 @@
+import operator
+from functools import reduce
+
 from django.db.models import Q
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse
 from django.shortcuts import render, Http404
 from django.views import View
-from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.views import LoginView
 
@@ -213,10 +215,20 @@ class SearchView(ListView):
     ordering = ['-published_at']
 
     def get_queryset(self):
+        result = super(SearchView, self).get_queryset()
         query = self.request.GET.get('s')
-        return Vacancy.objects.filter(
-            Q(title=query) | Q(description=query) | Q(skills=query)
+
+        if query:
+            query_list = query.split()
+            result = result.filter(
+                reduce(operator.and_,
+                       (Q(title__icontains=s) for s in query_list)) |
+                reduce(operator.and_,
+                       (Q(description__icontains=s) for s in query_list))  |
+                reduce(operator.and_,
+                       (Q(skills__icontains=s) for s in query_list))
             )
+        return result
 
 
 class MyResumeView(View):
