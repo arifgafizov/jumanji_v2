@@ -8,8 +8,8 @@
         <div class="row">
             <div class="col-md-7 col-lg-5 col-xl-4 col-sm-8 mx-auto">
 
-            <form class="form-inline sm-form mr-auto mb-4">
-                <input class="form-control mr-sm-2" type="text" placeholder="Например: ios" value="" aria-label="Search"  name="s">
+             <form class="form-inline sm-form mr-auto mb-4">
+                <input class="form-control mr-sm-2" type="text" placeholder="Например: ios" value="{{request.GET.s}}" aria-label="Search"  name="s">
                 <button class="btn btn-primary  my-0" type="submit">Найти вакансии</button>
             </form>
 
@@ -17,7 +17,13 @@
         </div>
 
 
-      <p class="text-center pt-1">Найдено {{object_list.count}} вакансий</p>
+      <p class="text-center pt-1">
+        {% if object_list %}
+           <h5 class="h5 text-center mt-5 mb-4"> Найдено {{object_list.count}} вакансий</h5>
+        {% else %}
+          <h5 class="h5 text-center mt-5 mb-4">Ничего не найдено</h5>
+        {% endif %}
+      </p>
       <div class="row mt-5">
         <div class="col-12 col-lg-8 offset-lg-2 m-auto">
           <div class="card mb-4">
