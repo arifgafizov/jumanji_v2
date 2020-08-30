@@ -21,10 +21,10 @@
             <a class="nav-link" href="{% url 'vacancies' %}">Вакансии</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Компании</a>
+            <a class="nav-link" href="{% url 'companies' %}">Компании</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">О проекте</a>
+            <a class="nav-link" href="{% url 'about' %}">О проекте</a>
           </li>
         </ul>
         {% if request.user.is_authenticated %}

@@ -45,12 +45,13 @@
               Опыт работы в команде по Scrum
             </p>
           </div>
+            {% load crispy_forms_tags %}
           <form action="{{vacancy.id}}/send" method="post">
             {% csrf_token %}
-            {{applicationform.as_p}}
+            {% crispy applicationform "bootstrap4" %}
             <input class="btn btn-info mb-2" type="submit" value="Откликнуться">
           </form>
-        </section>
+      </section>
       </div>
     </div>
   </main>
