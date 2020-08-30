@@ -9,8 +9,7 @@ from django.views.generic import CreateView, ListView
 from django.contrib.auth.views import LoginView
 
 from app_jumanji.models import Specialty, Company, Vacancy, Resume
-
-from jumanji.forms import ApplicationForm, CompanyForm, VacancyForm, ResumeForm, SignUpForm
+from app_jumanji.forms import ApplicationForm, CompanyForm, VacancyForm, ResumeForm, SignUpForm
 
 
 class IndexView(View):
@@ -20,6 +19,11 @@ class IndexView(View):
             'companies': Company.objects.all()
         }
         return render(request, 'base.html', context=context)
+
+
+class AboutView(View):
+    def get(self, request, *args, **kwargs):
+        return render(request, 'about.html')
 
 
 class VacanciesView(View):
@@ -42,7 +46,7 @@ class VacanciesSpecialtiesView(View):
         return render(request, 'vacancies.html', context=context)
 
 
-class CompaniesView(View):
+class CompanyView(View):
     def get(self, request, id):
         company = Company.objects.filter(id=id).first()
         vacancies = Vacancy.objects.filter(company__name=company.name).all()
@@ -53,6 +57,12 @@ class CompaniesView(View):
             'vacancies': vacancies
         }
         return render(request, 'company.html', context=context)
+
+
+class CompaniesView(ListView):
+    model = Company
+    template_name = 'companies.html'
+    paginate_by = 10
 
 
 class VacancyView(View):
