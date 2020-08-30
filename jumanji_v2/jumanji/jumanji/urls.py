@@ -19,16 +19,19 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import LogoutView
 
-from app_jumanji.views import IndexView, VacanciesView, CompaniesView, VacancyView, VacanciesSpecialtiesView, \
+from app_jumanji.views import IndexView, VacanciesView, CompanyView, VacancyView, VacanciesSpecialtiesView, \
     custom_handler404, custom_handler500, MyCompanyView, MyCompanyVacanciesView, MyCompanyVacancyView, \
-    MySignupView, MyLoginView, SendRequestView, MyCompanyVacancyAddView, SearchView, MyResumeView
+    MySignupView, MyLoginView, SendRequestView, MyCompanyVacancyAddView, SearchView, MyResumeView, CompaniesView, \
+    AboutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', IndexView.as_view()),
+    path('about', AboutView.as_view(), name='about'),
     path('vacancies/', VacanciesView.as_view(), name='vacancies'),
     path('vacancies/<str:code>/', VacanciesSpecialtiesView.as_view(), name='specialties'),
-    path('companies/<int:id>/', CompaniesView.as_view(), name='companies'),
+    path('companies/<int:id>/', CompanyView.as_view(), name='company'),
+    path('companies', CompaniesView.as_view(), name='companies'),
     path('vacancies/<int:id>', VacancyView.as_view(), name='vacancy'),
     path('vacancies/<int:vacancy_id>/send', SendRequestView.as_view(), name='send_request'),
     path('mycompany', MyCompanyView.as_view(), name='mycompany'),
