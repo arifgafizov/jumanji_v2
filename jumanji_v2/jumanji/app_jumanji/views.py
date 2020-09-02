@@ -8,7 +8,7 @@ from django.views import View
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.views import LoginView
 
-from app_jumanji.models import Specialty, Company, Vacancy, Resume
+from app_jumanji.models import Specialty, Company, Vacancy, Resume, Application
 from app_jumanji.forms import ApplicationForm, CompanyForm, VacancyForm, ResumeForm, SignUpForm
 
 
@@ -77,25 +77,19 @@ class VacancyView(View):
         }
         return render(request, 'vacancy.html', context=context)
 
-    def post(self, request):
-        applicationform = ApplicationForm()
-        if applicationform.is_valid():
-            applicationform.save
-            return render(request, 'sent.html')
-        context = {
-            'applicationform': applicationform
-        }
-        return render(request, 'vacancy.html', context=context)
-
 
 class SendRequestView(View):
-    def get(self, request, *args, **kwargs):
+    def get(self, request, vacancy_id, *args, **kwargs):
         return render(request, 'sendrequest.html')
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request, vacancy_id, *args, **kwargs):
+        vacancy = Vacancy.objects.filter(id=vacancy_id).first()
         applicationform = ApplicationForm(request.POST)
         if applicationform.is_valid():
-            applicationform.save()
+            application = applicationform.save(commit=False)
+            application.user = request.user
+            application.vacancy = vacancy
+            application.save()
             return render(request, 'sent.html')
         return render(request, 'sendrequest.html')
 
