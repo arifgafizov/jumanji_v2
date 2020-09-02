@@ -9,7 +9,7 @@ from app_jumanji.models import Application, Company, Vacancy, Resume
 class ApplicationForm(forms.ModelForm):
     class Meta:
         model = Application
-        fields = '__all__'
+        fields = ('written_username', 'written_phone', 'written_cover_letter')
 
 
 class CompanyForm(forms.ModelForm):
