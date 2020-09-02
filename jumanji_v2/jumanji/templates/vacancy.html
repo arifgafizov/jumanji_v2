@@ -4,7 +4,7 @@
     <div class="row mt-5">
       <div class="col-12 col-lg-2">
         <div class="pl-3 mb-5">
-          <p><a href="#">Назад</a></p>
+          <p><a href="{% url 'vacancies' %}">Назад</a></p>
         </div>
       </div>
       <div class="col-12 col-lg-8">
@@ -45,11 +45,24 @@
               Опыт работы в команде по Scrum
             </p>
           </div>
-            {% load crispy_forms_tags %}
-          <form action="{{vacancy.id}}/send" method="post">
+             <form action="{{vacancy.id}}/send" class="card mt-4 mb-3" method="post">
             {% csrf_token %}
-            {% crispy applicationform "bootstrap4" %}
-            <input class="btn btn-info mb-2" type="submit" value="Откликнуться">
+            <div class="card-body mx-3">
+              <p class="h5 mt-3 font-weight-normal">Отозваться на вакансию</p>
+              <div class="form-group">
+                <label class="mb-1 mt-2" for="userName">Вас зовут</label>
+                <input class="form-control" type="text" placeholder="" id="userName" name="written_username">
+              </div>
+              <div class="form-group">
+                <label class="mb-1" for="userPhone">Ваш телефон</label>
+                <input class="form-control" type="tel" placeholder="" id="userPhone" name="written_phone">
+              </div>
+              <div class="form-group">
+                <label class="mb-1" for="userMsg" >Сопроводительное письмо</label>
+                <textarea class="form-control" rows="8" id="userMsg" name="written_cover_letter"></textarea>
+              </div>
+              <input type="submit" class="btn btn-primary mt-4 mb-2" value="Отозваться">
+            </div>
           </form>
       </section>
       </div>
