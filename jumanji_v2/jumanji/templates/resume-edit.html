@@ -5,7 +5,7 @@
     <section class="col-12 col-lg-6 offset-lg-3 mt-5 card">
       <div class="card-body px-3 pb-4">
         <h1 class="h4 pt-2 pb-3">Мое резюме</h1>
-        <p class="alert alert-info" role="alert">Ваше резюме обновлено!</p>
+        <p class="alert alert-info" role="alert">{% if resumeform.is_valid %} Ваше резюме обновлено! {% endif %}</p>
         <form method="post" class="">
           {% csrf_token %}
           <div class="row">

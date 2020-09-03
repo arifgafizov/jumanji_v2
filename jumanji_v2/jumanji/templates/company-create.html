@@ -5,7 +5,7 @@
       <div class="card-body px-3 pb-4">
         <h1 class="h4 pt-2">Моя компания</h1>
         <p class="mt-2">Пока мы думаем, что вы – частное лицо. Хотите создать карточку компании, разместить информаию и вакансии?</p>
-         <form action="mycompany" method="post" target="_blank">
+         <form action="mycompany" method="post">
            {% csrf_token %}
             {{companyform.as_p}}
            <button class="btn btn-info mb-2" type="submit">Создать карточку компании</button>
