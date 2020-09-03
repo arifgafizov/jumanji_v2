@@ -32,7 +32,10 @@
           <div class="checkbox mb-3"></div>
           <button class="btn btn-primary btn-lg btn-block" type="submit">Войти</button>
         </form>
-
+          <br>
+          {% if not form.is_valid %}
+            <p style='color: red' class="form-error">{{ form.non_field_errors.as_text }}</p>
+          {% endif %}
         <div class="mt-4 text-center"><p>Нет аккаунта? <a href="/signup">Зарегистрируйтесь!</a></p></div>
 
       </div>
