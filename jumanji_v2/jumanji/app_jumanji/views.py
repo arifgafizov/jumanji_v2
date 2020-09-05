@@ -118,22 +118,14 @@ class MyCompanyView(View):
         return render(request, 'company-edit.html', context=context)
 
     def post(self, request):
-        companyform = CompanyForm(request.POST, request.FILES)
-        user_id = request.user.id
-        company = Company.objects.filter(owner_id=user_id).first()
+        company = request.user.companies.first()
+        companyform = CompanyForm(request.POST, request.FILES, instance=company)
         if companyform.is_valid():
             if not company:
                 company = companyform.save(commit=False)
                 company.owner = request.user
                 company.save()
-            Company.objects.filter(id=company.id).update(
-                name=companyform.cleaned_data['name'],
-                location=companyform.cleaned_data['location'],
-                description=companyform.cleaned_data['description'],
-                employee_count=companyform.cleaned_data['employee_count'],
-                logo=companyform.cleaned_data['logo']
-            )
-        print(companyform.errors)
+            company = companyform.save()
         context = {
             'companyform': companyform
         }
