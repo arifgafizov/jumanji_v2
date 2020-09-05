@@ -51,7 +51,7 @@ class CompanyView(View):
         company = Company.objects.filter(id=id).first()
         vacancies = Vacancy.objects.filter(company__name=company.name).all()
         if not company:
-            return HttpResponse('0 вакансий')
+            raise Http404
         context = {
             'company': company,
             'vacancies': vacancies
