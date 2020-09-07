@@ -1,6 +1,7 @@
 import operator
 from functools import reduce
 
+from django.contrib.auth import authenticate, login
 from django.db.models import Q
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse
 from django.shortcuts import render, Http404
@@ -125,7 +126,7 @@ class MyCompanyView(View):
                 company = companyform.save(commit=False)
                 company.owner = request.user
                 company.save()
-            company = companyform.save()
+            companyform.save()
         context = {
             'companyform': companyform
         }
@@ -242,26 +243,15 @@ class MyResumeView(View):
         return render(request, 'resume-edit.html', context=context)
 
     def post(self, request):
-        resumeform = ResumeForm(request.POST)
         user_id = request.user.id
         resume = Resume.objects.filter(user_id=user_id).first()
+        resumeform = ResumeForm(request.POST, instance=resume)
         if resumeform.is_valid():
             if not resume:
                 resume = resumeform.save(commit=False)
                 resume.user = request.user
                 resume.save()
-            Resume.objects.filter(id=resume.id).update(
-                name=resumeform.cleaned_data['name'],
-                surname=resumeform.cleaned_data['surname'],
-                status=resumeform.cleaned_data['status'],
-                salary=resumeform.cleaned_data['salary'],
-                specialty=resumeform.cleaned_data['specialty'],
-                grade=resumeform.cleaned_data['grade'],
-                education=resumeform.cleaned_data['education'],
-                experience=resumeform.cleaned_data['experience'],
-                portfolio=resumeform.cleaned_data['portfolio']
-            )
-        print(resumeform.errors)
+            resumeform.save()
         context = {
             'resumeform': resumeform
         }
@@ -272,6 +262,13 @@ class MySignupView(CreateView):
     form_class = SignUpForm
     success_url = '/'
     template_name = 'signup.html'
+
+    def form_valid(self, form):
+        valid = super(MySignupView, self).form_valid(form)
+        username, password = form.cleaned_data.get('username'), form.cleaned_data.get('password1')
+        new_user = authenticate(username=username, password=password)
+        login(self.request, new_user)
+        return valid
 
 
 class MyLoginView(LoginView):
