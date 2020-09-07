@@ -11,20 +11,42 @@
   <main class="container">
     <div class="row">
       <div class="col-8 col-lg-4 offset-2 offset-lg-4">
-        {% load crispy_forms_tags %}
         <form class="form-signin pt-5" method="post" action="signup">
           {% csrf_token %}>
           <div class="text-center mt-5 b-1">
             <h1 class="h3 mb-3 font-weight-normal">Джуманджи</h1>
             <p class="h5 font-weight-light">Создайте аккаунт</p>
           </div>
-          {% crispy form "bootstrap4" %}
+         <div class="mt-5 form-label-group">
+            <p class="text-muted">Логин</p>
+            <input type="text" id="inputLogin" class="form-control" required autofocus name='username'>
+            <label for="inputLogin"></label>
+          </div>
+
+          <div class=" form-label-group">
+            <p class="text-muted">Имя</p>
+            <input type="text" id="inputName" class="form-control" required name="first_name">
+            <label for="inputName"></label>
+          </div>
+
+          <div class=" form-label-group">
+            <p class="text-muted">Фамилия</p>
+            <input type="text" id="inputSurname" class="form-control" required name="last_name">
+            <label for="inputSurname"></label>
+          </div>
+
+          <div class="form-label-group">
+            <p class="text-muted"> Пароль</p>
+            <input type="password" id="inputPassword" class="form-control" required name="password1">
+            <label for="inputPassword"></label>
+          </div>
+
           <div class="checkbox mb-3"></div>
           <button class="btn btn-primary btn-lg btn-block" type="submit">Зарегистрироваться</button>
         </form>
            <div class="mt-4 text-center"><p>Есть аккаунт? <a href="/login">Войдите!</a></p></div>
-
-
+      </div>
+    </div>
   </main>
 </body>
 </html>
