@@ -21,7 +21,7 @@ class CompanyForm(forms.ModelForm):
 class VacancyForm(forms.ModelForm):
     class Meta:
         model = Vacancy
-        exclude = ['company']
+        exclude = ['company', 'published_at']
         widgets = {'specialty': Select}
 
 
