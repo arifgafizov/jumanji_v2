@@ -1,3 +1,4 @@
+from datetime import datetime
 import operator
 from functools import reduce
 
@@ -141,7 +142,7 @@ class MyCompanyVacanciesView(View):
             if company:
                 my_vacancies = company.vacancies.all()
                 context = {'my_vacancies': my_vacancies,}
-        return render(request, 'mycompany-vacancies.html', context=context)
+                return render(request, 'mycompany-vacancies.html', context=context)
 
 
 class MyCompanyVacancyView(View):
@@ -161,18 +162,13 @@ class MyCompanyVacancyView(View):
         return render(request, 'mycompany-vacancy.html', context=context)
 
     def post(self, request, vacancy_id, *args, **kwargs):
-        vacancyform = VacancyForm(request.POST)
+        vacancy = Vacancy.objects.get(id=vacancy_id)
+        vacancyform = VacancyForm(request.POST, instance=vacancy)
+        current_date = datetime.now().date()
         if vacancyform.is_valid():
-            Vacancy.objects.filter(id=vacancy_id).update(
-                title=vacancyform.cleaned_data['title'],
-                specialty=vacancyform.cleaned_data['specialty'],
-                salary_min=vacancyform.cleaned_data['salary_min'],
-                salary_max=vacancyform.cleaned_data['salary_max'],
-                skills=vacancyform.cleaned_data['skills'],
-                description=vacancyform.cleaned_data['description'],
-                published_at=vacancyform.cleaned_data['published_at']
-            )
-        # print(vacancyform.errors)
+            vacancy = vacancyform.save(commit=False)
+            vacancy.published_at = current_date
+            vacancy.save()
         context = {
             'vacancyform': vacancyform,
         }
