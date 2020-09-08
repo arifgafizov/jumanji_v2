@@ -191,9 +191,13 @@ class MyCompanyVacancyAddView(View):
 
     def post(self, request, *args, **kwargs):
         vacancyform = VacancyForm(request.POST)
+        company = request.user.companies.first()
+        current_date = datetime.now().date()
         if vacancyform.is_valid():
-            vacancyform.save()
-        # print(vacancyform.errors)
+            vacancy = vacancyform.save(commit=False)
+            vacancy.company = company
+            vacancy.published_at = current_date
+            vacancy.save()
         context = {
             'vacancyform': vacancyform,
         }
