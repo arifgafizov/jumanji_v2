@@ -16,9 +16,9 @@
           <div class="card-body px-4 pb-4">
             <!-- Tab -->
             <section class="tab-pane fade show active">
-              <h2 class="h4 pt-2 pb-3">{{vacancy.title}}</h2>
+              <h2 class="h4 pt-2 pb-3"></h2>
               <p class="alert alert-info" role="alert">
-                Вакансия обновлена
+                {% if vacancyform.is_valid %} Вакансия обновлена! {% endif %}
               </p>
 
               <form method="post">
@@ -33,9 +33,9 @@
                   <div class="col-12 col-md-6">
                     <div class="form-group">
                       <label for="vacancySpecialty">Специализация</label>
-                        <select class="form-control" id="vacancySpecialty" name="specialty">
+                        <select class="form-control" id="vacancySpecialty" name="specialty" required>
                           {% for specialty in specialties %}
-                          <option>{{specialty.id}}</option>
+                            <option value="{{specialty.id}}">{{specialty.title}}</option>
                           {% endfor %}
                         </select>
                       </div>
@@ -63,19 +63,16 @@
                   <label class="mb-2 text-dark" for="vacancyDescription">Описание вакансии</label>
                   <textarea class="form-control" rows="4" id="vacancyDescription" style="color:#000;" name="description">description</textarea>
                 </div>
-                <div class="row">
-                  <div class="col-12 col-md-6">
-                    <div class="form-group pb-2">
-                      <label class="mb-2 text-dark" for="vacancyPublished_at">Дата публикации </label>
-                      <input class="form-control" type="text" id="vacancyPublished_at" name="published_at">
-                    </div>
-                  </div>
-                </div>
+
                 <div class="form-group">
                   <input type="submit" class="btn btn-info" value="Сохранить">
                 </div>
               </form>
             </section>
+                <br>
+                {% if not vacancyform.is_valid %}
+                  <p style='color: red' class="form-error">{{ vacancyform.non_field_errors.as_text }}</p>
+                {% endif %}
             <!-- END Tab -->
           </div>
         </div>
