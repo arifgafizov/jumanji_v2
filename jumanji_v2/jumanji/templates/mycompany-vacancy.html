@@ -18,7 +18,7 @@
             <section class="tab-pane fade show active">
               <h2 class="h4 pt-2 pb-3">{{vacancy.title}}</h2>
               <p class="alert alert-info" role="alert">
-                Вакансия обновлена
+                {% if vacancyform.is_valid %} Вакансия обновлена! {% endif %}
               </p>
 
               <form method="post">
@@ -35,7 +35,7 @@
                       <label for="vacancySpecialty">Специализация</label>
                         <select class="form-control" id="vacancySpecialty" name="specialty">
                           {% for specialty in specialties %}
-                          <option>{{specialty.id}}</option>
+                            <option value="{{specialty.id}}">{{specialty.title}}</option>
                           {% endfor %}
                         </select>
                       </div>
@@ -63,18 +63,15 @@
                   <label class="mb-2 text-dark" for="vacancyDescription">Описание вакансии</label>
                   <textarea class="form-control" rows="4" id="vacancyDescription" style="color:#000;" name="description">{{vacancy.description}}</textarea>
                 </div>
-                <div class="row">
-                  <div class="col-12 col-md-6">
-                    <div class="form-group pb-2">
-                      <label class="mb-2 text-dark" for="vacancyPublished_at">Дата публикации </label>
-                      <input class="form-control" type="text" value="{{vacancy.published_at}}" id="vacancyPublished_at" name="published_at">
-                    </div>
-                  </div>
-                </div>
+
                 <div class="form-group">
                   <input type="submit" class="btn btn-info" value="Сохранить">
                 </div>
               </form>
+                <br>
+                {% if not vacancyform.is_valid %}
+                  <p style='color: red' class="form-error">{{ vacancyform.non_field_errors.as_text }}</p>
+                {% endif %}
               <!-- END Vacancy info -->
               <!-- Applications -->
               <h2 class="h4 pt-2 pb-3">Отклики - {{vacancy.applications.count}}</h2>
