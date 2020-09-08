@@ -135,13 +135,12 @@ class MyCompanyView(View):
 
 class MyCompanyVacanciesView(View):
     def get(self, request):
-        user_id = request.user.id
-        company = Company.objects.filter(owner_id=user_id).first()
-        my_vacancies = company.vacancies.all()
-
-        context = {
-            'my_vacancies': my_vacancies,
-        }
+        if request.user.is_authenticated:
+            user_id = request.user.id
+            company = Company.objects.filter(owner_id=user_id).first()
+            if company:
+                my_vacancies = company.vacancies.all()
+                context = {'my_vacancies': my_vacancies,}
         return render(request, 'mycompany-vacancies.html', context=context)
 
 
