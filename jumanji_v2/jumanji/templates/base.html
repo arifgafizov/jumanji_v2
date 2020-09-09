@@ -35,7 +35,7 @@
                 {{request.user}}
               </button>
               <div class="dropdown-menu dropdown-menu-right mt-3">
-                <a href="#" class="dropdown-item py-2">Профиль</a>
+                <a href="{% url 'profile' %}" class="dropdown-item py-2">Профиль</a>
                 <a href="{% url 'myresume' %}" class="dropdown-item py-2">Резюме</a>
                 <a href="{% url 'mycompany' %}" class="dropdown-item py-2">Компания</a>
                 <a href="/logout" class="dropdown-item py-2">Выйти</a>
@@ -55,70 +55,7 @@
   </header>
 
 {% block container %}
-  <main class="container mt-3">
-    <section>
-      <h1 class="h1 text-center mx-auto mt-4 py-5"><strong>Вакансии для <br>Junior-разработчиков</strong></h1>
-      <div class="row">
-        <div class="col-12 col-md-8 col-lg-6 offset-lg-3 offset-md-2">
-          <form class="form-inline mb-3" action="{% url 'search' %}">
-            <div class="form-group col-8 col-md-10 pl-0">
-              <input class="form-control w-100" type="search" placeholder="Найти работу или стажировку" aria-label="Найти работу или стажировку" name="s">
-            </div>
-            <div class="form-group col-4 col-md-2 pl-0">
-              <button class="btn btn-primary w-100" type="submit">Найти</button>
-            </div>
-          </form>
-          <p>Например:
-            <a href="#" class="text-dark border-bottom border-dark m-1 text-decoration-none">Python</a>
-            <a href="#" class="text-dark border-bottom border-dark m-1 text-decoration-none">Flask</a>
-            <a href="#" class="text-dark border-bottom border-dark m-1 text-decoration-none">Django</a>
-            <a href="#" class="text-dark border-bottom border-dark m-1 text-decoration-none">Парсинг</a>
-            <a href="#" class="text-dark border-bottom border-dark m-1 text-decoration-none">ML</a>
 
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section class="mt-5 pt-3">
-      <h2 class="h2 font-weight-normal text-center mb-5">Вакансии по рубрикам</h2>
-      <div class="row mb-0">
-        {% for specialty in specialties %}
-        <div class="col-6 col-md-6 col-lg-3">
-          <div class="card pt-4 text-center mb-4">
-            <img class="mx-auto d-block" src="{{specialty.picture.url}}" width="100" height="60" alt="">
-            <div class="card-body">
-              <p class="card-text mb-2">{{specialty.title}}</p>
-              <p class="card-text"><a href="#">{{specialty.vacancies.count}} вакансий</a></p>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </section>
-
-    <section class="my-5 pt-3">
-      <h2 class="h2 font-weight-normal text-center mb-5">Нам доверяют лучшие компании</h2>
-      <div class="row mb-0">
-        {% for company in companies %}
-        <div class="col-6 col-md-6 col-lg-3">
-          <div class="card pt-4 text-center mb-4">
-            <a href="#" style="max-width: 150px;" class="mx-auto d-block">
-              <img class="mx-auto d-block mw-100" src="{{company.logo.url}}" alt="">
-            </a>
-            <div class="card-body">
-              <p class="card-text"><a href="#"><b>{{company.name}}</b></a></p>
-              <p class="card-text"><a href="#">{{company.vacancies.count}} вакансий</a></p>
-            </div>
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </section>
-  </main>
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 {% endblock %}
 </body>
 </html>
