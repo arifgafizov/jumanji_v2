@@ -1,6 +1,6 @@
-from datetime import datetime
 import operator
 from functools import reduce
+from datetime import datetime
 
 from django.contrib.auth import authenticate, login
 from django.db.models import Q
@@ -20,7 +20,7 @@ class IndexView(View):
             'specialties': Specialty.objects.all(),
             'companies': Company.objects.all()
         }
-        return render(request, 'base.html', context=context)
+        return render(request, 'index.html', context=context)
 
 
 class AboutView(View):
@@ -28,24 +28,28 @@ class AboutView(View):
         return render(request, 'about.html')
 
 
-class VacanciesView(View):
-    def get(self, request, *args, **kwargs):
-        context = {
-            'vacancies': Vacancy.objects.all()
-        }
-        return render(request, 'vacancies.html', context=context)
+class VacanciesView(ListView):
+    model = Vacancy
+    template_name = 'vacancies.html'
+    paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['vacancies_all_count'] = self.get_queryset().count
+        return context
 
 
 class VacanciesSpecialtiesView(View):
     def get(self, request, code):
-        specialty = Vacancy.objects.filter(specialty__code=code).first()
+        specialty = Specialty.objects.filter(code=code).first()
+        vacancies = Vacancy.objects.filter(specialty=specialty.id).all()
         if not specialty:
             raise Http404
         context = {
             'specialty': specialty,
-            'vacancies': Vacancy.objects.all()
+            'vacancies': vacancies
         }
-        return render(request, 'vacancies.html', context=context)
+        return render(request, 'vacancies-specialties.html', context=context)
 
 
 class CompanyView(View):
@@ -64,7 +68,12 @@ class CompanyView(View):
 class CompaniesView(ListView):
     model = Company
     template_name = 'companies.html'
-    paginate_by = 10
+    paginate_by = 5
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['companies_all_count'] = self.get_queryset().count
+        return context
 
 
 class VacancyView(View):
@@ -179,7 +188,6 @@ class MyCompanyVacancyAddView(View):
     def get(self, request):
         user_id = request.user.id
         company = Company.objects.filter(owner_id=user_id).first()
-
         vacancyform = VacancyForm()
         specialties = Specialty.objects.all()
         context = {
@@ -255,6 +263,26 @@ class MyResumeView(View):
             'resumeform': resumeform
         }
         return render(request, 'resume-edit.html', context=context)
+
+
+class MyProfileView(View):
+    def get(self, request):
+        user = request.user
+        #profile_user = User.objects.get(user_id=user_id)
+        context = {
+            'user': user
+        }
+        return render(request, 'profile.html', context=context)
+
+    def post(self, request, *args, **kwargs):
+        user = request.user
+        form = SignUpForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save
+        context = {
+            'form': form,
+        }
+        return render(request, 'profile.html', context=context)
 
 
 class MySignupView(CreateView):
