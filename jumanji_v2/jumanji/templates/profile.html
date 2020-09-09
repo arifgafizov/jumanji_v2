@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% block container %}
+
+  <main class="container mt-3 pb-5">
+    <div class="row mt-5">
+      <div class="col-12 col-lg-4">
+        <aside class="pt-3 pb-4 px-4 mb-5 card">
+          <h1 class="h4 pt-2 pb-2">Личный профиль</h1>
+          <div class="nav flex-column nav-pills">
+            <a class="nav-link active" href="{% url 'profile' %}">1. Информация о&nbsp;пользователе</a>
+          </div>
+        </aside>
+      </div>
+            <div class="col-12 col-lg-8">
+        <div class="card">
+          <div class="card-body px-4 pb-4">
+            <!-- Tab -->
+            <section class="tab-pane fade show active">
+              <h2 class="h4 pt-2 pb-3">Информация о&nbsp;пользователе</h2>
+              <p class="alert alert-info" role="alert">
+                {% if form.is_valid %} Информация о пользователе обновлена {% endif %}
+              </p>
+
+              <form method="post">
+                {% csrf_token %}
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+                      <label class="mb-2 text-dark" for="userName">Логин</label>
+                      <input class="form-control" type="text" value="{{user.username}}" id="userName" name="username">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+                      <label class="mb-2 text-dark" for="userFirstName">Имя</label>
+                      <input class="form-control" type="text" value="{{user.first_name}}" id="userFirstName" name="first_name">
+                    </div>
+                  </div>
+              	</div>
+              	<div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+                      <label class="mb-2 text-dark" for="userLastName">Фамилия</label>
+                      <input class="form-control" type="text" value="{{user.last_name}}" id="userLastName" name="last_name">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+                      <label class="mb-2 text-dark" for="userEmail">Електронный адрес</label>
+                      <input class="form-control" type="email" value="{{user.email}}" id="userEmail" name="email">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12 col-md-6">
+                    <div class="form-group pb-2">
+                      <label class="mb-2 text-dark" for="userPassword">Пароль</label>
+                      <input class="form-control" type="password" value="{{user.email}}" id="userPassword" name="password1">
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="submit" class="btn btn-info" value="Сохранить">
+                </div>
+              </form>
+            </section>
+            <!-- END Tab -->
+          </div>
+        </div>
+  </main>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+{% endblock %}
