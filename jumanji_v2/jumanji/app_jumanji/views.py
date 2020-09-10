@@ -152,6 +152,9 @@ class MyCompanyVacanciesView(View):
                 my_vacancies = company.vacancies.all()
                 context = {'my_vacancies': my_vacancies,}
                 return render(request, 'mycompany-vacancies.html', context=context)
+            else:
+                return render(request, 'company-create.html')
+        return render(request, 'login.html')
 
 
 class MyCompanyVacancyView(View):
