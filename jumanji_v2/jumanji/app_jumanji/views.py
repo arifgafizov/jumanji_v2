@@ -9,9 +9,10 @@ from django.shortcuts import render, Http404
 from django.views import View
 from django.views.generic import CreateView, ListView
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.models import User
 
 from app_jumanji.models import Specialty, Company, Vacancy, Resume, Application
-from app_jumanji.forms import ApplicationForm, CompanyForm, VacancyForm, ResumeForm, SignUpForm
+from app_jumanji.forms import ApplicationForm, CompanyForm, VacancyForm, ResumeForm, SignUpForm, UserUpdateForm
 
 
 class IndexView(View):
@@ -269,21 +270,19 @@ class MyResumeView(View):
 
 
 class MyProfileView(View):
-    def get(self, request):
-        user = request.user
-        #profile_user = User.objects.get(user_id=user_id)
+    def get(self, request, *args, **kwargs):
+        profile_user = User.objects.get(pk=request.user.pk)
         context = {
-            'user': user
+            'user': profile_user
         }
         return render(request, 'profile.html', context=context)
 
     def post(self, request, *args, **kwargs):
-        user = request.user
-        form = SignUpForm(request.POST, instance=user)
-        if form.is_valid():
-            form.save
+        userupdateform = UserUpdateForm(request.POST, instance=request.user)
+        if userupdateform.is_valid():
+            userupdateform.save()
         context = {
-            'form': form,
+            'userupdateform': userupdateform,
         }
         return render(request, 'profile.html', context=context)
 
