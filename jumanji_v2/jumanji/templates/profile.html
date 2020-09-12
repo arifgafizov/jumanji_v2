@@ -15,48 +15,48 @@
         <div class="card">
           <div class="card-body px-4 pb-4">
             <!-- Tab -->
-            <section class="tab-pane fade show active">
+            <section class="text-center tab-pane fade show active">
               <h2 class="h4 pt-2 pb-3">Информация о&nbsp;пользователе</h2>
               <p class="alert alert-info" role="alert">
                 {% if userupdateform.is_valid %} Информация о пользователе обновлена {% endif %}
               </p>
 
-              <form method="post">
+              <form class="align-middle" method="post">
                 {% csrf_token %}
-                <div class="row">
-                  <div class="col-12 col-md-6">
+                <div class="row justify-content-around">
+                  <div class="col-12 col-md-8">
                     <div class="form-group pb-2">
                       <label class="mb-2 text-dark" for="userName">Логин</label>
                       <input class="form-control" type="text" value="{{user.username}}" id="userName" name="username">
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-12 col-md-6">
+                <div class="row justify-content-around">
+                  <div class="col-12 col-md-8">
                     <div class="form-group pb-2">
                       <label class="mb-2 text-dark" for="userFirstName">Имя</label>
                       <input class="form-control" type="text" value="{{user.first_name}}" id="userFirstName" name="first_name">
                     </div>
                   </div>
               	</div>
-              	<div class="row">
-                  <div class="col-12 col-md-6">
+              	<div class="row justify-content-around">
+                  <div class="col-12 col-md-8">
                     <div class="form-group pb-2">
                       <label class="mb-2 text-dark" for="userLastName">Фамилия</label>
                       <input class="form-control" type="text" value="{{user.last_name}}" id="userLastName" name="last_name">
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-12 col-md-6">
+                <div class="row justify-content-around">
+                  <div class="col-12 col-md-8">
                     <div class="form-group pb-2">
                       <label class="mb-2 text-dark" for="userEmail">Електронный адрес</label>
                       <input class="form-control" type="email" value="{{user.email}}" id="userEmail" name="email">
                     </div>
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-12 col-md-6">
+                <div class="row justify-content-around">
+                  <div class="col-12 col-md-8">
                     <div class="form-group pb-2">
                       <label class="mb-2 text-dark" for="userPassword1">Пароль</label>
                       <input class="form-control" type="password" value="{{user.password}}" id="userPassword1" name="password1">
