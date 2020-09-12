@@ -2,5 +2,5 @@ __pycache__/
 /venv/
 /.idea/
 
-/jumanji_v2/jumanji/static/
+/jumanji_v2/jumanji/app_jumanji/static/
 /jumanji_v2/jumanji/specialties/
