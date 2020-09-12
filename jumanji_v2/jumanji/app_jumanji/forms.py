@@ -46,3 +46,17 @@ class SignUpForm(UserCreationForm):
             'username': 'Требование к логину. Не более 150 символов. И только буквы, цифры и символы @/./+/-/_.'
         }
 
+
+class UserUpdateForm(forms.ModelForm):
+    password1 = forms.CharField(widget=forms.PasswordInput, label='Пароль')
+    password2 = None
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'first_name', 'last_name']
+        labels = {
+            'username': 'Логин',
+            'first_name': 'Имя',
+            'last_name': 'Фамилия',
+            'email': 'Электронный адрес'
+            }
