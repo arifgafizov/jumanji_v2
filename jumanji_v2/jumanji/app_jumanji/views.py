@@ -62,11 +62,15 @@ class CompanyView(View):
     def get(self, request, id):
         company = Company.objects.filter(id=id).first()
         vacancies = Vacancy.objects.filter(company__name=company.name).all()
+        paginator = Paginator(vacancies, 5)
         if not company:
             raise Http404
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         context = {
             'company': company,
-            'vacancies': vacancies
+            'vacancies': vacancies,
+            'page_obj': page_obj
         }
         return render(request, 'company.html', context=context)
 
