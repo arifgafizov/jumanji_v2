@@ -3,6 +3,7 @@ from functools import reduce
 from datetime import datetime
 
 from django.contrib.auth import authenticate, login
+from django.core.paginator import Paginator
 from django.db.models import Q
 from django.http import HttpResponseNotFound, HttpResponseServerError, HttpResponse
 from django.shortcuts import render, Http404
@@ -44,11 +45,15 @@ class VacanciesSpecialtiesView(View):
     def get(self, request, code):
         specialty = Specialty.objects.filter(code=code).first()
         vacancies = Vacancy.objects.filter(specialty=specialty.id).all()
+        paginator = Paginator(vacancies, 5)
         if not specialty:
             raise Http404
+        page_number = request.GET.get('page')
+        page_obj = paginator.get_page(page_number)
         context = {
             'specialty': specialty,
-            'vacancies': vacancies
+            'vacancies': vacancies,
+            'page_obj': page_obj
         }
         return render(request, 'vacancies-specialties.html', context=context)
 
