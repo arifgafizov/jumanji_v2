@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="ru">
 
 <head>
@@ -6,11 +7,12 @@
   <title>Джуманджи</title>
   <style>
     body {
-      background: #c7b39b url(static/fone_grey.png) center no-repeat;
-      background-size: cover;
+      background: #c7b39b url({% static "images/fone_triangles.jpg" %});
+      background-size: auto;
+      ​​​​​​​background-repeat: space;
     }
      div {
-	 opacity: 0.9;
+	 opacity: 1;
  	 padding: 5px;
    }
   </style>
