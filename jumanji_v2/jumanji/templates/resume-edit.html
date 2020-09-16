@@ -6,6 +6,9 @@
       <div class="card-body px-3 pb-4">
         <h1 class="h4 pt-2 pb-3">Мое резюме</h1>
         <p class="alert alert-info" role="alert">{% if resumeform.is_valid %} Ваше резюме обновлено! {% endif %}</p>
+        {% if resumeform.errors %}
+          <p style='color: red' class="form-error">{{ resumeform.errors.as_text }}</p>
+        {% endif %}
         <form method="post" class="">
           {% csrf_token %}
           <div class="row">
