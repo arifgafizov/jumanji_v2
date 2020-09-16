@@ -20,7 +20,9 @@
               <p class="alert alert-info" role="alert">
                 {% if userupdateform.is_valid %} Информация о пользователе обновлена {% endif %}
               </p>
-
+              {% if userupdateform.errors %}
+                <p style='color: red' class="form-error">{{ userupdateform.errors.as_text }}</p>
+              {% endif %}
               <form class="align-middle" method="post">
                 {% csrf_token %}
                 <div class="row justify-content-around">
@@ -59,7 +61,7 @@
                   <div class="col-12 col-md-8">
                     <div class="form-group pb-2">
                       <label class="mb-2 text-dark" for="userPassword1">Пароль</label>
-                      <input class="form-control" type="password" value="{{user.password}}" id="userPassword1" name="password1">
+                      <input class="form-control" type="password" value="" id="userPassword1" name="password1">
                     </div>
                   </div>
                 </div>
