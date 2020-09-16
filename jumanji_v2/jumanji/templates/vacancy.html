@@ -45,6 +45,9 @@
               Опыт работы в команде по Scrum
             </p>
           </div>
+              {% if applicationform.errors %}
+                <p style='color: red' class="form-error">{{ applicationform.errors.as_text }}</p>
+              {% endif %}
              <form action="{{vacancy.id}}/send" class="card mt-4 mb-3" method="post">
             {% csrf_token %}
             <div class="card-body mx-3">

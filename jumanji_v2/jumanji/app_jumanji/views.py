@@ -112,7 +112,11 @@ class SendRequestView(View):
             application.vacancy = vacancy
             application.save()
             return render(request, 'sent.html')
-        return render(request, 'sendrequest.html')
+        context = {
+            'vacancy': vacancy,
+            'applicationform': applicationform
+        }
+        return render(request, 'vacancy.html', context=context)
 
 
 class CompanyCreateView(View):
