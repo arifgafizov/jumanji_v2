@@ -2,7 +2,7 @@
 {% block container %}
   <main class="container mt-3">
     <div class="navbar mt-5">
-      <p><a href="{% url 'companies' %}">Назад</a></p>
+      <p><a href="{{request.META.HTTP_REFERER|escape}}">Назад</a></p>
     </div>
     <section>
       <div class="text-center">
