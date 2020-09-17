@@ -21,7 +21,9 @@
               <p class="alert alert-info" role="alert">
                 {% if companyform.is_valid %} Информация о компании обновлена {% endif %}
               </p>
-
+               {% if companyform.errors %}
+                  <p style='color: red' class="form-error">{{ companyform.errors.as_text }}</p>
+               {% endif %}
               <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 <div class="row">
