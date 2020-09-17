@@ -106,17 +106,19 @@ class SendRequestView(View):
     def post(self, request, vacancy_id, *args, **kwargs):
         vacancy = Vacancy.objects.filter(id=vacancy_id).first()
         applicationform = ApplicationForm(request.POST)
-        if applicationform.is_valid():
-            application = applicationform.save(commit=False)
-            application.user = request.user
-            application.vacancy = vacancy
-            application.save()
-            return render(request, 'sent.html')
-        context = {
-            'vacancy': vacancy,
-            'applicationform': applicationform
-        }
-        return render(request, 'vacancy.html', context=context)
+        if request.user.is_authenticated:
+            if applicationform.is_valid():
+                application = applicationform.save(commit=False)
+                application.user = request.user
+                application.vacancy = vacancy
+                application.save()
+                return render(request, 'sent.html')
+            context = {
+                'vacancy': vacancy,
+                'applicationform': applicationform
+            }
+            return render(request, 'vacancy.html', context=context)
+        return render(request, 'login.html')
 
 
 class CompanyCreateView(View):
