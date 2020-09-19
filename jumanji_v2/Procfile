@@ -1,1 +1,1 @@
-web: gunicorn jumanji_v2.jumanji.jumanji.wsgi --log-file -
+web: gunicorn jumanji_v2.jumanji.jumanji.wsgi
