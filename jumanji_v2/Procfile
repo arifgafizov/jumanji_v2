@@ -1,1 +1,1 @@
-web: gunicorn app_jumanji / manage.py runserver 0.0.0.0:$PORT
+web: gunicorn jumanji.wsgi --log-file -
