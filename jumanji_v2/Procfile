@@ -1,1 +1,1 @@
-web: gunicorn jumanji_v2.jumanji.app_jumanji.wsgi
+web: gunicorn app_jumanji / manage.py runserver 0.0.0.0:$PORT
