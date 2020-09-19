@@ -1,0 +1,1 @@
+web: gunicorn --chdir jumanji_v2 jumanji jumanji.wsgi

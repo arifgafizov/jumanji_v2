@@ -1,1 +1,0 @@
-web: gunicorn jumanji_v2.jumanji.jumanji.wsgi
