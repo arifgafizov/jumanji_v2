@@ -1,1 +1,1 @@
-web: gunicorn app_jumanji.wsgi
+web: gunicorn jumanji_v2.jumanji.app_jumanji.wsgi
